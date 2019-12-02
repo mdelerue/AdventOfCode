@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { readInput } from '../../helpers/file';
+import { readInput } from '../../helpers/file.js';
 
 const filepath = new URL('input.txt', import.meta.url).pathname;
 

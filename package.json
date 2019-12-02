@@ -2,10 +2,11 @@
   "name": "adventofcode",
   "version": "1.0.0",
   "description": "Advent of code",
-  "main": "./src/index.mjs",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "2019": "node --experimental-modules src/2019/index.mjs",
-    "prettier": "./node_modules/prettier/bin-prettier.js  --config './.prettierrc' --write 'src/**/*.mjs'"
+    "2019": "node --experimental-modules src/2019/index.js",
+    "prettier": "./node_modules/prettier/bin-prettier.js  --config './.prettierrc' --write 'src/**/*.js'"
   },
   "repository": {
     "type": "git",

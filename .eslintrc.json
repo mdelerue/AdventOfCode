@@ -15,6 +15,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "implicit-arrow-linebreak": ["warning", "below"]
+        "implicit-arrow-linebreak": ["warn", "below"],
+        "import/extensions": "off",
+        "import/named": "off"
+
     }
 }
