@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/mdelerue/AdventOfCode/issues"
   },
-  "homepage": "https://github.com/mdelerue/AdventOfCode#readme",
+  "homepage": "https://github.com/mdelerue/AdventOfCode",
   "devDependencies": {
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
