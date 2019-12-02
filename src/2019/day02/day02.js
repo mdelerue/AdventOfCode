@@ -1,6 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import { readInput } from '../../helpers/file.js';
 
+const WANTED_RESULT = 19690720;
+const NOUN_POSSIBILITIES = 99;
+const VERB_POSSIBILITIES = 99;
+
 const filepath = new URL('input.txt', import.meta.url).pathname;
 
 export const day02 = async () => {
@@ -10,10 +14,8 @@ export const day02 = async () => {
   processed[2] = 2;
 
   const [part1] = processPart(processed, processed.slice(0, 4), 4);
-
-  const wantedResult = 19690720;
-  const nouns = Array.from(Array(99).keys());
-  const verbs = Array.from(Array(99).keys());
+  const nouns = Array.from(Array(NOUN_POSSIBILITIES).keys());
+  const verbs = Array.from(Array(VERB_POSSIBILITIES).keys());
   let part2 = null;
 
   for (const noun of nouns) {
@@ -21,9 +23,10 @@ export const day02 = async () => {
       processed = input.map((value) => parseInt(value));
       processed[1] = noun;
       processed[2] = verb;
+
       const [result] = processPart(processed, processed.slice(0, 4), 4);
 
-      if (result === wantedResult) {
+      if (result === WANTED_RESULT) {
         part2 = parseInt(('0' + noun).slice(-2) + ('0' + verb).slice(-2));
         break;
       }
