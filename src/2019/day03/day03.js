@@ -51,62 +51,27 @@ const getDotCoordinate = (line) =>
     const movements = Array.from(Array(numberOfMovement).keys()).map(
       (key) => key + 1
     );
-    let partialMoves = [];
-
-    switch (instruction[0]) {
-      case 'D':
-        partialMoves = movements.reduce(
-          (acc, value) => [
-            ...acc,
-            {
-              ...start,
-              y: start.y - value,
-              numberOfMove: start.numberOfMove + value,
-            },
-          ],
-          []
-        );
-        break;
-      case 'U':
-        partialMoves = movements.reduce(
-          (acc, value) => [
-            ...acc,
-            {
-              ...start,
-              y: start.y + value,
-              numberOfMove: start.numberOfMove + value,
-            },
-          ],
-          []
-        );
-        break;
-      case 'L':
-        partialMoves = movements.reduce(
-          (acc, value) => [
-            ...acc,
-            {
-              ...start,
-              x: start.x - value,
-              numberOfMove: start.numberOfMove + value,
-            },
-          ],
-          []
-        );
-        break;
-      case 'R':
-        partialMoves = movements.reduce(
-          (acc, value) => [
-            ...acc,
-            {
-              ...start,
-              x: start.x + value,
-              numberOfMove: start.numberOfMove + value,
-            },
-          ],
-          []
-        );
-        break;
-    }
+    const partialMoves = movements.reduce(
+      (acc, value) => [
+        ...acc,
+        {
+          y:
+            instruction[0] === 'D'
+              ? start.y - value
+              : instruction[0] === 'U'
+              ? start.y + value
+              : start.y,
+          x:
+            instruction[0] === 'L'
+              ? start.x - value
+              : instruction[0] === 'R'
+              ? start.x + value
+              : start.x,
+          numberOfMove: start.numberOfMove + value,
+        },
+      ],
+      []
+    );
 
     return [...fullArray, ...partialMoves];
   }, []);
@@ -114,7 +79,7 @@ const getDotCoordinate = (line) =>
 const dedupe = (array) => Array.from(new Set(array));
 
 const intersect = (array1, array2) => {
-  var set2 = new Set(array2);
+  const set2 = new Set(array2);
   return [...new Set(array1)].filter((x) => set2.has(x));
 };
 
