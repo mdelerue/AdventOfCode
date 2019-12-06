@@ -10,21 +10,28 @@ export const day05 = async () => {
   const input = await readInput(filepath, ',');
   let processed = input.map((value) => parseInt(value));
 
-  processPart(processed, 0);
+  processPart(processed, 0, true);
+  const part1 = output.slice(-1)[0];
+
+  processed = input.map((value) => parseInt(value));
+  processPart(processed, 0, false);
+  const part2 = output.slice(-1)[0];
 
   return {
-    part1: output.slice(-1)[0],
+    part1,
+    part2,
   };
 };
 
-const processPart = (array, nextStartIndex) => {
-
+const processPart = (array, nextStartIndex, part1 = true) => {
   if (array[nextStartIndex].toString().padStart(5, '0') === '00099') {
     return output;
   }
 
   const instruction = map
-    .call(array[nextStartIndex].toString().padStart(5, '0'), (letter) => parseInt(letter))
+    .call(array[nextStartIndex].toString().padStart(5, '0'), (letter) =>
+      parseInt(letter)
+    )
     .reverse();
 
   switch (instruction[0]) {
@@ -32,7 +39,7 @@ const processPart = (array, nextStartIndex) => {
       array[array[nextStartIndex + 3]] =
         processOperand(1, array, nextStartIndex, instruction) +
         processOperand(2, array, nextStartIndex, instruction);
-      nextStartIndex +=  4;
+      nextStartIndex += 4;
       break;
     case 2:
       array[array[nextStartIndex + 3]] =
@@ -41,12 +48,44 @@ const processPart = (array, nextStartIndex) => {
       nextStartIndex += 4;
       break;
     case 3:
-      array[array[nextStartIndex + 1]] = 1;
+      array[array[nextStartIndex + 1]] = part1 ? 1 : 5;
       nextStartIndex += 2;
-      break
+      break;
     case 4:
       output = [...output, array[array[nextStartIndex + 1]]];
       nextStartIndex += 2;
+      break;
+    case 5:
+      // jump if true
+      nextStartIndex =
+        processOperand(1, array, nextStartIndex, instruction) !== 0
+          ? processOperand(2, array, nextStartIndex, instruction)
+          : nextStartIndex + 3;
+      break;
+    case 6:
+      // jump if false
+      nextStartIndex =
+        processOperand(1, array, nextStartIndex, instruction) === 0
+          ? processOperand(2, array, nextStartIndex, instruction)
+          : nextStartIndex + 3;
+      break;
+    case 7:
+      // less than
+      array[array[nextStartIndex + 3]] =
+        processOperand(1, array, nextStartIndex, instruction) <
+        processOperand(2, array, nextStartIndex, instruction)
+          ? 1
+          : 0;
+      nextStartIndex += 4;
+      break;
+    case 8:
+      // equals
+      array[array[nextStartIndex + 3]] =
+        processOperand(1, array, nextStartIndex, instruction) ===
+        processOperand(2, array, nextStartIndex, instruction)
+          ? 1
+          : 0;
+      nextStartIndex += 4;
       break;
   }
 
