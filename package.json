@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "2019": "node --experimental-modules src/2019/index.js",
+    "2020": "node --experimental-modules src/2020/index.js",
     "prettier": "./node_modules/prettier/bin-prettier.js  --config './.prettierrc' --write 'src/**/*.js'"
   },
   "repository": {
